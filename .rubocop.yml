@@ -1,0 +1,8 @@
+require:
+  - rubocop-capybara
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-performance
+  
+AllCops:
+  NewCops: enable
