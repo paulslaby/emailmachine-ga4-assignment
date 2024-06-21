@@ -71,3 +71,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "google-analytics-data", "~> 0.6.0"
