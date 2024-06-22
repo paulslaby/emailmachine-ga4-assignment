@@ -19,9 +19,9 @@ It took about 3-4 hours.
 We use a service sccount credentials. Set the path to yout json credentials file to the env variable GOOGLE_APPLICATION_CREDENTIALS. 
 Example: `export GOOGLE_APPLICATION_CREDENTIALS="config/google_credentials.json"`
 
-### Run rails server
+### Run rails server or tests
 
-`bundle exec rails s`
+`bundle exec rails s` or `bundle exec rspec`
 
 ### Use the application
 
