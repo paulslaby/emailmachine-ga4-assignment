@@ -72,6 +72,11 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem "rails-controller-testing", "~> 1.0"
+  gem 'webmock'
 end
 
 gem "google-analytics-data", "~> 0.6.0"

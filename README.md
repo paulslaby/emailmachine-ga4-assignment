@@ -60,3 +60,4 @@ See GoogleAnalyticsOperationsHelper.
 * Authentication to out app.
 * Allow users to create their accounts and their own connections to their own GA accounts.
 * Frontend - Make users love that product.
+* Cleanup - unused parts of the framework.

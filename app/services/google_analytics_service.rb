@@ -7,12 +7,12 @@ class GoogleAnalyticsService
     medium: 'sessionMedium'
   }.freeze
 
-  def initialize
+  def initialize(property_id: nil)
     @client = Google::Analytics::Data.analytics_data do |config|
       config.credentials = ENV['GOOGLE_APPLICATION_CREDENTIALS']
     end
 
-    @property_id = '279977912'.freeze # TODO: env
+    @property_id = property_id
   end
 
   def data_by_utms(start_date, end_date, utms = {})

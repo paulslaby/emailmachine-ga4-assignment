@@ -1,6 +1,12 @@
 <h1>Stažení dat z Google Analytics</h1>
 
 <%= form_with url: google_analytics_operation_path, method: :put, data: { turbo: false } do |form| %>
+
+  <div class="field">
+    <%= form.label :property_id, "Property" %>
+    <%= form.text_field :property_id, value: params[:property_id] || '279977912' %>
+  </div>
+
   <div class="field">
     <%= form.label :campaign, "Campaign" %>
     <%= form.select :campaign, options_for_select(['2023_02_06_ snehove_retezy', '2020_03_20_dezinfekce_na_ruce']), { include_blank: '--all--' } %>
