@@ -1,0 +1,70 @@
+<h1>Stažení dat z Google Analytics</h1>
+
+<%= form_with url: google_analytics_operation_path, method: :put, data: { turbo: false } do |form| %>
+  <div class="field">
+    <%= form.label :campaign, "Campaign" %>
+    <%= form.select :campaign, options_for_select(['2023_02_06_ snehove_retezy', '2020_03_20_dezinfekce_na_ruce']), { include_blank: '--all--' } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :source, "Source" %>
+    <%= form.select :source, options_for_select(['newsletter', 'ecomail']), { include_blank: '--all--' } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :medium, "Medium" %>
+    <%= form.select :medium, options_for_select(['email']) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_date, "Datum začátku" %>
+    <%= form.date_field :start_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_date, "Datum konce" %>
+    <%= form.date_field :end_date %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Stáhni data z GA" %>
+  </div>
+<% end %>
+
+<% if @data.nil? %>
+  <p>Zde uvidíte tabulku s výsledky po stisknutí tlačítka "Stáhni data z GA"</p>
+<% elsif @data.empty? %>
+  <p>Nejsou dostupná žádná data pro zvolené parametry</p>  
+<% else %>
+<table>
+  <thead>
+    <tr>
+      <th>Počet zobrazených stránek</th>
+      <th>Počet unikátních uživatelů</th>
+      <th>Počet přidání produktu do košíku</th>
+      <th>Počet dokončených nákupů</th>
+      <th>Celkový objem transakce</th>
+      <th>Průměrná hodnota transakce</th>
+      <th>Konverzní poměr</th>
+      <th>ROI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @data.each do |row| %>
+      <tr>
+        <td><%= number_with_precision row['screenPageViews'], precision: 0 %></td>
+        <td><%= number_with_precision row['activeUsers'], precision: 0 %></td>
+        <td><%= number_with_precision row['addToCarts'], precision: 0 %></td>
+        <td><%= number_with_precision row['transactions'], precision: 0 %></td>
+        <td><%= number_with_precision row['totalRevenue'], precision: 2 %> <%= @currency %></td>
+        <td><%= number_with_precision average_transaction_value(row['totalRevenue'], row['transactions']) %> <%= @currency %></td>
+        <td><%= number_with_precision conversion_rate(row['transactions'], row['screenPageViews']) %> %</td>
+        <td><%= number_with_precision roi(costs(row['screenPageViews']), row['totalRevenue']) %> %</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<pre>
+  <%= @data %>
+</pre>
+<% end %>
